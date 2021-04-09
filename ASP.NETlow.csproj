@@ -3,5 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
-
+  <ItemGroup>
+    <!-- extends watching group to include *.js files -->
+    <Watch Include="**\*.js;**\*.cshtml" Exclude="node_modules\**\*;**\*.js.map;obj\**\*;bin\**\*" />
+  </ItemGroup>
 </Project>
