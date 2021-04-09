@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace ASP.NETlow.controllers
 {
+	[Route("blog")]
 	public class BlogController : Controller
 	{
 		// GET: BlogController
@@ -19,6 +20,13 @@ namespace ASP.NETlow.controllers
 		public ActionResult Details(string id)
 		{
 			return new ContentResult { Content = $"Simple Blog {id}" };
+		}
+
+		// custom GET
+		[Route("{year:int}/{month:int}/{key?}")]
+		public ActionResult Details(int year, int month, string key)
+		{
+			return new ContentResult { Content = $"Year : {year}, Month: {month}, key: {key}" };
 		}
 
 		// GET: BlogController/Create
