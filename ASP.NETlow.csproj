@@ -6,5 +6,9 @@
   <ItemGroup>
     <!-- extends watching group to include *.js files -->
     <Watch Include="**\*.js;**\*.cshtml" Exclude="node_modules\**\*;**\*.js.map;obj\**\*;bin\**\*" />
+    <None Include="**\*.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
   </ItemGroup>
 </Project>

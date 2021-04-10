@@ -36,25 +36,24 @@ namespace ASP.NETlow.controllers
 			return View(post);
 		}
 
-		//// GET: BlogController/Create
-		//public ActionResult Create()
-		//{
-		//	return View();
-		//}
+		// GET: BlogController/Create
+		[HttpGet, Route("create")]
+		public ActionResult Create()
+		{
+			return View();
+		}
 
 		// POST: BlogController/Create
-		[HttpPost]
+		[HttpPost, Route("create")]
 		[ValidateAntiForgeryToken]
-		public ActionResult Create(IFormCollection collection)
+		public ActionResult Create(Post post)
 		{
-			try
-			{
-				return RedirectToAction(nameof(Index));
-			}
-			catch
-			{
+			if (!ModelState.IsValid)
 				return View();
-			}
+			post.Author = User.Identity.Name;
+			post.Posted = DateTime.Now;
+
+			return View();
 		}
 
 		// GET: BlogController/Edit/5
