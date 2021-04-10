@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ASP.NETlow.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,29 +12,35 @@ namespace ASP.NETlow.controllers
 	public class BlogController : Controller
 	{
 		// GET: BlogController
+		[Route("")]
 		public ActionResult Index()
-		{
-			return new ContentResult { Content = "Simple Blog" };
-		}
-
-		// GET: BlogController/Details/5
-		public ActionResult Details(string id)
-		{
-			return new ContentResult { Content = $"Simple Blog {id}" };
-		}
-
-		// custom GET
-		[Route("{year:int}/{month:int}/{key?}")]
-		public ActionResult Details(int year, int month, string key)
-		{
-			return new ContentResult { Content = $"Year : {year}, Month: {month}, key: {key}" };
-		}
-
-		// GET: BlogController/Create
-		public ActionResult Create()
 		{
 			return View();
 		}
+
+		// GET: BlogController/Details/5
+		//public ActionResult Details(string id)
+		//{
+		//	return new ContentResult { Content = $"Simple Blog {id}" };
+		//}
+
+		// custom GET
+		[Route("{year:int}/{month:int}/{key?}")]
+		public ActionResult Post(int year, int month, string key)
+		{
+			var post = new Post
+			{
+				Title = "View Post from Controller"
+			};
+			//ViewBag.Title = "View Post ";
+			return View(post);
+		}
+
+		//// GET: BlogController/Create
+		//public ActionResult Create()
+		//{
+		//	return View();
+		//}
 
 		// POST: BlogController/Create
 		[HttpPost]
@@ -51,10 +58,10 @@ namespace ASP.NETlow.controllers
 		}
 
 		// GET: BlogController/Edit/5
-		public ActionResult Edit(int id)
-		{
-			return View();
-		}
+		//public ActionResult Edit(int id)
+		//{
+		//	return View();
+		//}
 
 		// POST: BlogController/Edit/5
 		[HttpPost]
@@ -72,10 +79,10 @@ namespace ASP.NETlow.controllers
 		}
 
 		// GET: BlogController/Delete/5
-		public ActionResult Delete(int id)
-		{
-			return View();
-		}
+		//public ActionResult Delete(int id)
+		//{
+		//	return View();
+		//}
 
 		// POST: BlogController/Delete/5
 		[HttpPost]
