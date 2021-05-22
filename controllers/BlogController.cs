@@ -11,11 +11,17 @@ namespace ASP.NETlow.controllers
 	[Route("blog")]
 	public class BlogController : Controller
 	{
+		private readonly BlogDataContext _db;
+		public BlogController(BlogDataContext db)
+		{
+			_db = db;
+		}
 		// GET: BlogController
 		[Route("")]
-		public ActionResult Index()
+		public IActionResult Index()
 		{
-			return View();
+			var posts = _db.Posts.OrderByDescending(x => x.Posted).Take(5).ToArray();
+			return View(posts);
 		}
 
 		// GET: BlogController/Details/5
@@ -28,10 +34,7 @@ namespace ASP.NETlow.controllers
 		[Route("{year:int}/{month:int}/{key?}")]
 		public ActionResult Post(int year, int month, string key)
 		{
-			var post = new Post
-			{
-				Title = "View Post from Controller"
-			};
+			var post = _db.Posts.FirstOrDefault(x => x.Key == key);
 			//ViewBag.Title = "View Post ";
 			return View(post);
 		}
@@ -53,7 +56,10 @@ namespace ASP.NETlow.controllers
 			post.Author = User.Identity.Name;
 			post.Posted = DateTime.Now;
 
-			return View();
+			_db.Posts.Add(post);
+			_db.SaveChanges();
+
+			return RedirectToAction("Post","Blog", new { year = post.Posted.Year, month = post.Posted.Month, key = post.Key });
 		}
 
 		// GET: BlogController/Edit/5
