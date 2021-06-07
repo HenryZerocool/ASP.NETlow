@@ -24,6 +24,7 @@ namespace ASP.NETlow
 		public void ConfigureServices(IServiceCollection services)
 		{
 			//services.AddTransient<SpecialsDataContext>();
+			services.AddTransient<FormattingServices>();
 			services.AddMvc(option => option.EnableEndpointRouting = false);
 			services.AddDbContext<BlogDataContext>(options =>
 			{
